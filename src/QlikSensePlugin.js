@@ -25,13 +25,11 @@ export default class QlikSensePlugin {
             callback();
           });
         } else {
-          compiler.hooks.emit.tap('emit', function (compilation, callback) {
+          compiler.hooks.emit.tap('emit', function (compilation) {
 
             createExtensionMetadata(compilation, _this._options);
 
             createWbFolder(compilation, _this._options);
-
-            callback();
           });
         }
     }
