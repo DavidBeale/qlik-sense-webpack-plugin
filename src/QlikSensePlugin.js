@@ -17,20 +17,19 @@ export default class QlikSensePlugin {
 
     apply(compiler) {
         if (typeof compiler.plugin !== 'undefined') {
-          compiler.plugin('emit', (compilation, callback) => {
-            createExtensionMetadata(compilation, this._options);
+            compiler.plugin('emit', (compilation, callback) => {
+                createExtensionMetadata(compilation, this._options);
 
-            createWbFolder(compilation, this._options);
+                createWbFolder(compilation, this._options);
 
-            callback();
-          });
+                callback();
+            });
         } else {
-          compiler.hooks.emit.tap('emit', function (compilation) {
+            compiler.hooks.emit.tap('emit', (compilation) => {
+                createExtensionMetadata(compilation, this._options);
 
-            createExtensionMetadata(compilation, _this._options);
-
-            createWbFolder(compilation, _this._options);
-          });
+                createWbFolder(compilation, this._options);
+            });
         }
     }
 
