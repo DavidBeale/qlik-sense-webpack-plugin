@@ -16,13 +16,22 @@ export default class QlikSensePlugin {
 
 
     apply(compiler) {
-        compiler.plugin('emit', (compilation, callback) => {
+        if (typeof compiler.plugin !== 'undefined') {
+          compiler.plugin('emit', (compilation, callback) => {
             createExtensionMetadata(compilation, this._options);
 
             createWbFolder(compilation, this._options);
 
             callback();
-        });
+          });
+        } else {
+          compiler.hooks.emit.tap('emit', function (compilation) {
+
+            createExtensionMetadata(compilation, _this._options);
+
+            createWbFolder(compilation, _this._options);
+          });
+        }
     }
 
 
